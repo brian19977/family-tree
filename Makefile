@@ -1,7 +1,13 @@
-CXX = g++
+CXX = g++-8
 
 CXXFLAGS = -g -Wall -std=c++17
 
-tree-main: tree.o
+LDLIBS = -lstdc++fs -pthread
 
-tree.o:
+tree-main: person.o
+
+person.o:
+
+.PHONY: clean
+clean:
+	rm -f *.o a.out tree-main core

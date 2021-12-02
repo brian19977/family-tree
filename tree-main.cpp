@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include "tree.h"
+#include "person.h"
 #include <filesystem>
 #include <exception>
 #include <fstream>
@@ -17,23 +17,24 @@ int main()
 
     string buf;
     int count = 1;
-    vector<Person> people;
+    vector<Person *> people;
 
     getline(family_members, buf); // skip first "PERSON"
 
-    while(getline(family_members, buf))
+    while(getline(family_members, buf)) // this one gets the name
     {
         Person *temp = new Person("","","",0,0,0,0,0,0,nullptr,nullptr,count);
         
-        getline(family_members, buf);
         temp->modify_name(
             buf.substr(0,buf.find(" ")),
             buf.substr(buf.find(" ")+1,buf.length())
             );
-        
+       
+	// add gender
         getline(family_members, buf);
         temp->modify_gender(buf);
 
+	// add dates
         getline(family_members, buf);
         stringstream dates(buf);
         string segment;
@@ -41,12 +42,14 @@ int main()
         while(getline(dates, segment, ','))
             seglist.push_back(segment);
         vector<int> intdates;
+
         for(const auto& date : seglist)
             intdates.push_back(stoi(date));
 
         temp->modify_dates(intdates[0],intdates[1],intdates[2],
             intdates[3], intdates[4], intdates[5]);
 
+	// skip family member connections for now
         while(getline(family_members, buf))
         {
             if(buf == "PERSON")
@@ -55,9 +58,9 @@ int main()
                 break;
             }
         }
-        people.push_back(*temp);
+        people.push_back(temp);
     }
 
-    for(auto& person : people)
-        cout << person.firstname << endl;
+    for(const auto& person : people)
+        cout << *person << endl;
 }

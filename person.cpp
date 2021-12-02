@@ -1,11 +1,11 @@
-#include "tree.h"
+#include "person.h"
 #include <iostream>
 
-ostream& operator<<(ostream& output, Person& dude)
+std::ostream& operator<<(std::ostream& output, const Person& dude)
 {
-    output << dude.firstname << " " << dude.lastname << "\n";
-       // << "Date of birth: " << dude.birthyear << "/" 
-       // << dude.birthmonth << "/" << dude.birthday << "\n";
+    output << dude.firstname << " " << dude.lastname << "\n"
+	<< "Date of birth: " << dude.birthyear << "/" 
+	<< dude.birthmonth << "/" << dude.birthday;
     return output;
 }
 
@@ -69,40 +69,52 @@ void Person::modify_dates(int byear, int bmonth, int bday, int dyear, int dmonth
 void Person::add_spouse(Person *spouse) 
 { 
     this->spouse = spouse;
-    spouse->spouse = this;
+    if(spouse)
+	spouse->spouse = this;
 }
 
 void Person::modify_spouse(Person *spouse) 
-{ 
-    this->spouse->spouse = nullptr;
+{
+    if(this->spouse)
+	this->spouse->spouse = nullptr;
     this->spouse = spouse;
     spouse->spouse = this;
 }
 
 void Person::remove_spouse()
 {
-    this->spouse->spouse = nullptr;
+    if(this->spouse)
+	this->spouse->spouse = nullptr;
     this->spouse = nullptr;
 }
 
 void Person::add_child(Person *child)
 {
     children.insert(child);
+    if(this->gender == "Male")
+	child->father = this;
+    else
+	child->mother = this;
 }
 
 void Person::remove_child(Person *child)
 {
     children.erase(child);
+    if(this->gender == "Male")
+	child->father = nullptr;
+    else
+	child->mother = nullptr;
+
 }
 
 void Person::add_sibling(Person *sibling)
 {
     siblings.insert(sibling);
+    sibling->siblings.insert(this);
 }
 
 void Person::remove_sibling(Person *sibling)
 {
     siblings.erase(sibling);
+    sibling->siblings.erase(this);
 }
-
-

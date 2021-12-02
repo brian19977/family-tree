@@ -30,6 +30,8 @@ public:
     void add_sibling(Person *sibling);
     void remove_sibling(Person *sibling);
 
+    friend ostream& operator<<(ostream& output, const Person& dude);
+
     string firstname;
     string lastname;
     int birthyear;
