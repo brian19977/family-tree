@@ -16,23 +16,24 @@ int main()
         throw runtime_error { "Can't open Family_Members." };
 
     string buf;
-    int count = 1;
-    vector<Person *> people;
+    vector<Person> people;
 
     getline(family_members, buf); // skip first "PERSON"
 
-    while(getline(family_members, buf)) // this one gets the name
+    while(getline(family_members, buf)) // this one gets the id
     {
-        Person *temp = new Person("","","",0,0,0,0,0,0,nullptr,nullptr,count);
+        Person temp = {"","","",0,0,0,0,0,0,nullptr,nullptr,stoi(buf)};
         
-        temp->modify_name(
+	// add name
+	getline(family_members, buf);
+        temp.modify_name(
             buf.substr(0,buf.find(" ")),
             buf.substr(buf.find(" ")+1,buf.length())
             );
        
 	// add gender
         getline(family_members, buf);
-        temp->modify_gender(buf);
+        temp.modify_gender(buf);
 
 	// add dates
         getline(family_members, buf);
@@ -46,21 +47,27 @@ int main()
         for(const auto& date : seglist)
             intdates.push_back(stoi(date));
 
-        temp->modify_dates(intdates[0],intdates[1],intdates[2],
+        temp.modify_dates(intdates[0],intdates[1],intdates[2],
             intdates[3], intdates[4], intdates[5]);
 
 	// skip family member connections for now
         while(getline(family_members, buf))
         {
             if(buf == "PERSON")
-            {
-                count++;
                 break;
-            }
         }
         people.push_back(temp);
     }
 
+    // set ifstream to start of file
+    family_members.clear();
+    family_members.seekg(0, ios::beg);
+
+
+
     for(const auto& person : people)
-        cout << *person << endl;
+        cout << person << endl;
+
+    
+    
 }

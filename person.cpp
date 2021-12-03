@@ -3,9 +3,14 @@
 
 std::ostream& operator<<(std::ostream& output, const Person& dude)
 {
-    output << dude.firstname << " " << dude.lastname << "\n"
-	<< "Date of birth: " << dude.birthyear << "/" 
-	<< dude.birthmonth << "/" << dude.birthday;
+    output << dude.first_name() << " " << dude.last_name()
+	<< "\nDate of birth: " << dude.birth_year() << "/" 
+	<< dude.birth_month() << "/" << dude.birth_day();
+    if(dude.death_year())
+    {
+	output << "\nDate of death: " << dude.death_year() << "/"
+	<< dude.death_month() << "/" << dude.death_day();
+    }
     return output;
 }
 
