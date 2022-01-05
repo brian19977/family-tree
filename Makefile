@@ -11,3 +11,10 @@ person.o:
 .PHONY: clean
 clean:
 	rm -f *.o a.out tree-main core
+
+.PHONY: all
+all: clean tree-main
+
+.PHONY: vg
+vg: 
+	valgrind --leak-check=yes ./tree-main

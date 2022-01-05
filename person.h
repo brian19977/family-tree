@@ -10,18 +10,25 @@ using namespace std;
 
 class Person {
 public:
-    Person(string fname, string lname, string gen, int byear, int bmonth, int bday, int dyear, int dmonth, int dday, Person *f, Person *m, int id);
+    Person() = default;
+
+    Person(string fname, string lname, string gen, 
+        int byear, int bmonth, int bday, 
+        int dyear, int dmonth, int dday, 
+        Person *f, Person *m, int id);    
 
     void modify_name(string fname, string lname);
     inline string first_name() const { return firstname; }
     inline string last_name() const { return lastname; }
 
+    void modify_id(int id);
     inline int id_() const { return id; }
 
     void modify_gender(string gen);
     inline string gender_() const { return gender; }
 
     void modify_parents(Person *f, Person *m);
+    void Person::remove_parents(bool f, bool m);
 
     void modify_dates(int byear, int bmonth, int bday, int dyear, int dmonth, int dday);
     inline int birth_year() const { return birthyear; }
@@ -57,8 +64,8 @@ private:
     int id;
 
     Person *spouse;
-    set<Person *> children;
+    map<int, Person *> children;
     Person *father;
     Person *mother;
-    set<Person *> siblings;
+    map<int, Person *> siblings;
 };
