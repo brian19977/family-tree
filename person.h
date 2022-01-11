@@ -12,16 +12,16 @@ class Person {
 public:
     Person() = default;
 
-    Person(string fname, string lname, string gen, 
-        int byear, int bmonth, int bday, 
-        int dyear, int dmonth, int dday, 
-        Person *f, Person *m, int id);    
+    Person(string firstname_, string lastname_, string gender_, 
+        int birthyear_, int birthmonth_, int birthday_, 
+        int deathyear_, int deathmonth_, int deathday_, 
+        Person *father_, Person *mother_, int id_);    
 
-    void modify_name(string fname, string lname);
-    inline string first_name() const { return firstname; }
-    inline string last_name() const { return lastname; }
+    void modify_name(string firstname_, string lastname_);
+    inline string firstname_() const { return firstname; }
+    inline string lastname_() const { return lastname; }
 
-    void modify_id(int id);
+    void modify_id(int id_);
     inline int id_() const { return id; }
 
     void modify_gender(string gen);
@@ -30,13 +30,15 @@ public:
     void modify_parents(Person *f, Person *m);
     void Person::remove_parents(bool f, bool m);
 
-    void modify_dates(int byear, int bmonth, int bday, int dyear, int dmonth, int dday);
-    inline int birth_year() const { return birthyear; }
-    inline int birth_month() const { return birthmonth; }
-    inline int birth_day() const { return birthday; }
-    inline int death_year() const { return deathyear; }
-    inline int death_month() const { return deathmonth; }
-    inline int death_day() const { return deathday; }
+    void modify_dates(int birthyear_, int birthmonth_, int birthday_, 
+        int deathyear_, int deathmonth_, int deathday_);
+ 
+    inline int birthyear_() const { return birthyear; }
+    inline int birthmonth_() const { return birthmonth; }
+    inline int birthday_() const { return birthday; }
+    inline int deathyear_() const { return deathyear; }
+    inline int deathmonth_() const { return deathmonth; }
+    inline int deathday_() const { return deathday; }
 
     void add_spouse(Person *spouse);
     void modify_spouse(Person *spouse);

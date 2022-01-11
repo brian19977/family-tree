@@ -1,5 +1,4 @@
 #include "person.h"
-#include <iostream>
 
 std::ostream& operator<<(std::ostream& output, const Person& dude)
 {
@@ -14,54 +13,54 @@ std::ostream& operator<<(std::ostream& output, const Person& dude)
     return output;
 }
 
-Person::Person(string fname = "", string lname = "", string gen = "", 
-    int byear = 0, int bmonth = 0, int bday = 0, 
-    int dyear = 0, int dmonth = 0, int dday = 0, 
-    Person *f = nullptr, Person *m = nullptr, int id = 0)
+Person::Person(string firstname_ = "", string lastname_ = "", string gender_ = "", 
+    int birthyear_ = 0, int birthmonth_ = 0, int birthday_ = 0, 
+    int deathyear_ = 0, int deathmonth_ = 0, int deathday_ = 0, 
+    Person *father_ = nullptr, Person *mother_ = nullptr, int id_ = 0)
 {
-    firstname = fname;
-    lastname = lname;
-    gender = gen;
+    firstname = firstname_;
+    lastname = lastname_;
+    gender = gender_;
 
-    birthyear = byear;
-    birthmonth = bmonth;
-    birthday = bday;
-    deathyear = dyear;
-    deathmonth = dmonth;
-    deathday = dday;
+    birthyear = birthyear_;
+    birthmonth = birthmonth_;
+    birthday = birthday_;
+    deathyear = deathyear_;
+    deathmonth = deathmonth_;
+    deathday = deathday_;
 
-    father = f;
-    mother = m;
+    father = father_;
+    mother = mother_;
 
-    this->id = id;
+    id = id_
 }
 
-void Person::modify_name(string fname, string lname)
+void Person::modify_name(string firstname_, string lastname_)
 {
-    if(fname.length())
-        firstname = fname;
-    if(lname.length())
-        lastname = lname;
+    if(firstname_.length())
+        firstname = firstname_;
+    if(lastname_.length())
+        lastname = lastname_;
 }
 
-void Person::modify_id(int id)
+void Person::modify_id(int id_)
 {
-    if(id)
-        this->id = id;
+    if(id_)
+        id = id_;
 }
 
-void Person::modify_gender(string gen)
+void Person::modify_gender(string gender_)
 {
-    if(gen.length())
-        gender = gen;
+    if(gender_.length())
+        gender = gender_;
 }
 
-void Person::modify_parents(Person *f, Person *m)
+void Person::modify_parents(Person *father_, Person *mother_)
 {
-    if(f)
-        father = f;
-    if(m)
-        mother = m;
+    if(father_)
+        father = father_;
+    if(mother_)
+        mother = mother_;
 }
 
 void Person::remove_parents(bool f, bool m)
@@ -72,14 +71,15 @@ void Person::remove_parents(bool f, bool m)
         mother = nullptr;
 }
 
-void Person::modify_dates(int byear, int bmonth, int bday, int dyear, int dmonth, int dday)
+void modify_dates(int birthyear_, int birthmonth_, int birthday_,
+    int deathyear_, int deathmonth_, int deathday_)
 {
-    birthyear = byear;
-    birthmonth = bmonth;
-    birthday = bday;
-    deathyear = dyear;
-    deathmonth = dmonth;
-    deathday = dday;
+    birthyear = birthyear_;
+    birthmonth = birthmonth_;
+    birthday = birthday_;
+    deathyear = deathyear_;
+    deathmonth = deathmonth_;
+    deathday = deathday_;
 }
 
 void Person::add_spouse(Person *spouse) 
